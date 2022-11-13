@@ -29,25 +29,25 @@ ml_models = st.container()
 @st.cache
 def load_data():
     # df = pd.read_csv('/Users/michalmitura/Documents/python projects/Car price prediction project/data/data_preprocessed_clean.csv')
-    df = pd.read_csv('dashboard/data/data_preprocessed_clean.csv')
+    df = pd.read_csv('data/data_preprocessed_clean.csv')
     df.drop('Unnamed: 0', axis=1, inplace=True)
     return df
 
 @st.cache
 def load_model_data():
-    df = pd.read_csv('dashboard/data/model_results.csv')
+    df = pd.read_csv('data/model_results.csv')
     df.drop('Unnamed: 0', axis=1, inplace=True)
     return df
 
 @st.cache
 def load_model(model_name):
-    file = open(f'dashboard/models/{model}.pickle', 'rb')
+    file = open(f'models/{model}.pickle', 'rb')
     model = pickle.load(file)
     return model
 
 @st.cache
 def load_feature_data():
-    df = pd.read_csv('dashboard/data/feature_importances_comparison.csv')
+    df = pd.read_csv('data/feature_importances_comparison.csv')
     df.drop('Unnamed: 0', axis=1, inplace=True)
     return df
 
