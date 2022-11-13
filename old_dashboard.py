@@ -29,29 +29,21 @@ ml_models = st.container()
 @st.cache
 def load_data():
     # df = pd.read_csv('/Users/michalmitura/Documents/python projects/Car price prediction project/data/data_preprocessed_clean.csv')
-    df = pd.read_csv('dashboard/data/data_preprocessed_clean.csv')
+    df = pd.read_csv('data/data_preprocessed_clean.csv')
     df.drop('Unnamed: 0', axis=1, inplace=True)
     return df
 
 @st.cache
 def load_model_data():
-    df = pd.read_csv('dashboard/data/model_results.csv')
+    df = pd.read_csv('data/model_results.csv')
     df.drop('Unnamed: 0', axis=1, inplace=True)
     return df
 
 @st.cache
 def load_model(model_name):
-    file = open(f'dashboard/models/{model}.pickle', 'rb')
+    file = open(f'models/{model}.pickle', 'rb')
     model = pickle.load(file)
     return model
-
-@st.cache
-def load_feature_data():
-    df = pd.read_csv('dashboard/data/feature_importances_comparison.csv')
-    df.drop('Unnamed: 0', axis=1, inplace=True)
-    return df
-
-
 
 
 
@@ -60,7 +52,6 @@ brands = list(data['brand'].unique())
 brands.append('All')
 
 data_ml_models = load_model_data()
-feature_data = load_feature_data()
 
 def generate_prediction(input_data, model):
     model = pickle.load(open(f'models/{chosen_model}_model.pickle', 'rb'))
@@ -161,13 +152,8 @@ with dataset:
         st.plotly_chart(figure_or_data=fig2_3, use_container_width=True)
 
 with model_overview:
-    with col1:
-        st.header('Model overview')
-        st.write(data_ml_models)
-    with col2:
-        st.header('Feature importances')
-        st.dataframe(feature_data, use_container_width=True, height=211)
-
+    st.header('Model overview')
+    st.write(data_ml_models)
 
 with ml_models:
     with col1:
